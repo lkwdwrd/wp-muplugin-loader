@@ -1,6 +1,6 @@
 <?php
-namespace LKW\MU_Loader\List_Table;
-use LKW\MU_Loader\Util;
+namespace LkWdwrd\MU_Loader\List_Table;
+use LkWdwrd\MU_Loader\Loader;
 
 // Create some aliases for long-named constants
 const PS = DIRECTORY_SEPARATOR;
@@ -11,7 +11,7 @@ function list_table( $lt = LT, $ps = PS, $mudir = MUDIR ) {
 	$table = new $lt;
 	$spacer = '+&nbsp;&nbsp;';
 
-	foreach ( Util\get_muplugins() as $plugin_file) {
+	foreach ( Loader\get_muplugins() as $plugin_file) {
 		$plugin_data = get_plugin_data( $mudir . $ps . $plugin_file, false);
 		if ( empty( $plugin_data['Name'] ) ) {
 			$plugin_data['Name'] = $plugin_file;

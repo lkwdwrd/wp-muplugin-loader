@@ -1,5 +1,6 @@
 <?php
-namespace LKW\MU_Loader\Util;
+namespace LkWdwrd\MU_Loader\Loader;
+use LkWdwrd\MU_Loader\Util;
 
 // Create some aliases for long-named constants
 const PS = DIRECTORY_SEPARATOR;
@@ -19,7 +20,8 @@ function mu_loader( $plugins = false, $ps = PS, $mudir = MUDIR ) {
 function get_muplugins( $abs = ABS, $pdir = PDIR, $mudir = MUDIR, $ps = PS ) {
 	$key = get_muloader_key( $mudir );
 	//Try to get the plugin list from the cache
-	$plugins = false; //get_site_transient( $key );
+	delete_site_transient( $key );
+	$plugins = get_site_transient( $key );
 	// If the cache missed, regenerate it.
 	if ( $plugins === false ) {
 		if ( ! function_exists( 'get_plugins' ) ) {
@@ -27,14 +29,14 @@ function get_muplugins( $abs = ABS, $pdir = PDIR, $mudir = MUDIR, $ps = PS ) {
 			require $abs . 'wp-admin/includes/plugin.php';
 		}
 		$plugins = array();
-		$rel_path = rel_path( $pdir, $mudir );
-		foreach ( \get_plugins( $ps . $rel_path ) as $plugin_file => $data ) {
+		$rel_path = Util\rel_path( $pdir, $mudir );
+		foreach ( get_plugins( $ps . $rel_path ) as $plugin_file => $data ) {
 			// skip files directly at root
 			if ( dirname( $plugin_file ) !== '.' ) {
 				$plugins[] = $plugin_file;
 			}
 		}
-		//set_site_transient( $key, $plugins );
+		set_site_transient( $key, $plugins );
 	}
 	return $plugins;
 }
@@ -52,14 +54,4 @@ function get_muloader_key( $mudir = MUDIR ) {
 		set_site_transient( 'lkw_mu_loader_key', $key );
 	}
 	return $key;
-}
-
-function rel_path( $from, $to, $ps = PS ) {
-	$arFrom = explode($ps, rtrim( $from, $ps ) );
-	$arTo = explode( $ps, rtrim( $to, $ps ) );
-	while( count( $arFrom ) && count( $arTo ) && ( $arFrom[0] == $arTo[0] ) ) {
-		array_shift( $arFrom );
-		array_shift( $arTo );
-	}
-	return str_pad( '', count( $arFrom ) * 3, '..' . $ps ) . implode( $ps, $arTo );
 }
