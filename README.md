@@ -56,7 +56,7 @@ This is compatible with [WPackagist](https://wpackagist.org/). When adding plugi
 },
 "extra": {
 	"force-mu": [
-		"wp-crontrol"
+		"rest-api"
 	],
 	"installer-paths": {
 		"app/wp-content/themes/{$name}": [
