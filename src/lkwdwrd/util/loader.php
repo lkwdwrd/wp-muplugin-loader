@@ -78,9 +78,6 @@ function get_muplugins( $abs = ABS, $pdir = PDIR, $mudir = MUDIR, $ps = PS ) {
 	return $plugins;
 }
 
-// Generate a unique cache key that will change when MU directory changes.
-// If the key changes, make sure transients don't stack up in the
-// options table.
 /**
  * Gets a unique key to use in caching the MU-Plugins list.
  *
@@ -94,6 +91,7 @@ function get_muplugins( $abs = ABS, $pdir = PDIR, $mudir = MUDIR, $ps = PS ) {
  * Doing this ensures as the MU-Plugins directory changes, regaurdless of the
  * caching mechanism, even the options table, the data will not build up over
  * time. Especially important when the options table is used.
+ *
  * @param  String $mudir The MU Plugins Directory. Default: WPMU_PLUGIN_DIR
  * @return String        An MD5 cache key to use.
  */
