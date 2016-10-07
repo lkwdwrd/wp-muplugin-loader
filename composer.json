@@ -31,6 +31,6 @@
 	},
 	"scripts" : {
 		"test" : "paratest --colors",
-		"export-coverage": "test-reporter"
+		"export-coverage": "test-reporter --stdout > codeclimate.json"
 	}
 }
