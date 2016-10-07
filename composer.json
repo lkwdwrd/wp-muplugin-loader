@@ -30,6 +30,7 @@
 		"codeclimate/php-test-reporter": "^0.3.2"
 	},
 	"scripts" : {
-		"test" : "paratest --colors"
+		"test" : "paratest --colors",
+		"export-coverage": "test-reporter"
 	}
 }

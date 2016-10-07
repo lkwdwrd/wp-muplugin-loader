@@ -20,6 +20,9 @@ before_script:
 
 script: composer test
 
+after_script:
+  - composer export-coverage
+
 cache:
   directories:
     - vendor
