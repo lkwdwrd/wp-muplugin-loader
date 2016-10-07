@@ -1,8 +1,8 @@
 <phpunit
 	bootstrap="bootstrap.php.dist"
 	backupGlobals="false"
-	processIsolation="false"
-	colors="false">
+	processIsolation="true"
+	colors="true">
 	<testsuites>
 		<testsuite name="Default">
 			<directory suffix="Tests.php">./tests/phpunit</directory>
@@ -18,4 +18,7 @@
 		<ini name="display_errors" value="1" />
 		<ini name="display_startup_errors" value="1" />
 	</php>
+	<logging>
+		<log type="coverage-clover" target="tests/logs/clover.xml"/>
+	</logging>
 </phpunit>

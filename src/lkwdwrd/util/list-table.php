@@ -15,7 +15,7 @@ use LkWdwrd\MU_Loader\Loader;
 
 // Create some aliases for long-named constants
 const PS = DIRECTORY_SEPARATOR;
-const LT = WP_Plugins_List_Table;
+const LT = '\WP_Plugins_List_Table';
 const MUDIR = WPMU_PLUGIN_DIR;
 
 /**
