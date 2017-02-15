@@ -68,7 +68,8 @@ class MULoaderPlugin implements PluginInterface, EventSubscriberInterface {
 	public static function getSubscribedEvents() {
 		return array(
 			'pre-autoload-dump' => 'dumpRequireFile',
-			'pre-package-install' => 'overridePluginTypes'
+			'pre-package-install' => 'overridePluginTypes',
+			'pre-package-update' => 'overridePluginTypes',
 		);
 	}
 	/**
