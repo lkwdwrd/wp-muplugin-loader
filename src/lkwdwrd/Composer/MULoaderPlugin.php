@@ -131,6 +131,7 @@ class MULoaderPlugin implements PluginInterface, EventSubscriberInterface {
 		$toLoader = DIRECTORY_SEPARATOR . Util\rel_path( $muPath, $loadFile );
 
 		// Write the boostrapping PHP file.
+		mkdir( $muPath, 0755, true );
 		file_put_contents(
 			$muPath . 'mu-require.php',
 			"<?php\nrequire_once __DIR__ . '${toLoader}';\n"
