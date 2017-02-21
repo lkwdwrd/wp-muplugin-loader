@@ -5,6 +5,8 @@ php:
   - '7.0'
   - '5.6'
 
+install: composer install
+
 script: composer test
 
 after_script:
