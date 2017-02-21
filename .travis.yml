@@ -1,22 +1,9 @@
 language: php
 
-matrix:
-  include:
-    - php: '5.4'
-      env: MU_LOADER_INSTALL_LOWEST=0
-    - php: '5.6'
-      env: MU_LOADER_INSTALL_LOWEST=0
-    - php: '7.0'
-      env: MU_LOADER_INSTALL_LOWEST=0
-    - php: '5.4'
-      env: MU_LOADER_INSTALL_LOWEST=1
-    - php: '5.6'
-      env: MU_LOADER_INSTALL_LOWEST=1
-    - php: '7.0'
-      env: MU_LOADER_INSTALL_LOWEST=1
-
-before_script:
-  - if [ 1 -eq $MU_LOADER_INSTALL_LOWEST ]; then composer update --prefer-lowest; else composer update; fi
+php:
+  - '7.1'
+  - '7.0'
+  - '5.6'
 
 script: composer test
 

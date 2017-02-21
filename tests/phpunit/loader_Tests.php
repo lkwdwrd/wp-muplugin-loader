@@ -14,7 +14,7 @@ namespace LkWdwrd\MU_Loader;
 */
 
 use WP_Mock;
-use WP_Mock\Tools\TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class Loader_Tests extends TestCase {
 	/**
@@ -71,9 +71,9 @@ class Loader_Tests extends TestCase {
 			]
 		] );
 		// Run the test
-		Loader\mu_loader();
+		$return = Loader\mu_loader();
 		// Verify the results
-		$this->assertConditionsMet();
+		$this->assertNull( $return );
 	}
 	/**
 	 * The get_muplugins function will return cached data if available.
@@ -123,7 +123,6 @@ class Loader_Tests extends TestCase {
 		// Run the test
 		$result = Loader\get_muplugins();
 		// Make sure the set cache function was called.
-		$this->assertConditionsMet();
 		$this->assertEquals( $result, $expected );
 	}
 	/**
@@ -182,7 +181,6 @@ class Loader_Tests extends TestCase {
 		// Run the test
 		$result = Loader\get_muloader_key();
 		// Verify results
-		$this->assertConditionsMet();
 		$this->assertEquals( $result, $this->key );
 	}
 }

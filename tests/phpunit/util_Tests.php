@@ -14,7 +14,7 @@ namespace LkWdwrd\MU_Loader;
 */
 
 use WP_Mock;
-use WP_Mock\Tools\TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class MULoaderPlugin_Tests extends TestCase {
 	/**

@@ -15,7 +15,7 @@ namespace LkWdwrd\MU_Loader;
 
 use WP_Mock;
 use Mockery;
-use WP_Mock\Tools\TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class List_Table_Tests extends TestCase {
 	/**

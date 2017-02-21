@@ -14,7 +14,7 @@ namespace TenUp\ElasticPress_io\Core;
 */
 
 use WP_Mock;
-use WP_Mock\Tools\TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class MULoaderPlugin_Tests extends TestCase {
 	protected $testFiles = [];
