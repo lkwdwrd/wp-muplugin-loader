@@ -88,8 +88,15 @@ class MULoaderPlugin implements PluginInterface, EventSubscriberInterface {
 	 * @return void
 	 */
 	public function overridePluginTypes( $event ) {
+		// Get the package being worked on.
+		$operation = $event->getOperation();
+		if ( $operation instanceof \Composer\DependencyResolver\Operation\UpdateOperation ) {
+			$package = $operation->getInitialPackage();
+		} else {
+			$package = $operation->getPackage();
+		}
+
 		// Only act on wordpress-plugin types
-		$package = $event->getOperation()->getPackage();
 		if ( 'wordpress-plugin' !== $package->getType() ) {
 			return;
 		}
