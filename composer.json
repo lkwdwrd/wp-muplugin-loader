@@ -1,6 +1,6 @@
 {
 	"name" : "lkwdwrd/wp-muplugin-loader",
-	"version" : "1.0.3",
+	"version" : "1.0.4",
 	"description" : "A drop-in MU Plugin loader for WordPress",
 	"keywords" : ["wordpress", "muplugin", "loader"],
 	"type" : "composer-plugin",
