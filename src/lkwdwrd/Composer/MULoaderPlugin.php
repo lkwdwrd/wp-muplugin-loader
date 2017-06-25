@@ -133,7 +133,7 @@ class MULoaderPlugin implements PluginInterface, EventSubscriberInterface {
 		}
 
 		// Find the relative path from the mu-plugins dir to the mu-loader file.
-		$muPath = $this->resolveMURelPath( $muRelPath );
+		$muPath = $this->normalizePath( $this->resolveMURelPath( $muRelPath ) );
 		$loadFile = dirname( __DIR__ ) . DIRECTORY_SEPARATOR . 'mu-loader.php';
 		$toLoader = DIRECTORY_SEPARATOR . Util\rel_path( $muPath, $loadFile );
 
@@ -193,5 +193,15 @@ class MULoaderPlugin implements PluginInterface, EventSubscriberInterface {
 		$basepath = str_replace( $tag, '', $this->config->get('vendor-dir') );
 		// Return the abosolute path.
 		return $basepath . $relpath;
+	}
+	
+	/**
+	 * Ensure that a given path only uses the correct directory separator
+	 *
+	 * @param string $path The path to normalize
+	 * @return string      The normalized path
+	 */
+	protected function normalizePath( $path ) {
+		return str_replace( array( '/', "\\" ), DIRECTORY_SEPARATOR, $path );
 	}
 }
