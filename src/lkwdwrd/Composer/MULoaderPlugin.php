@@ -134,8 +134,9 @@ class MULoaderPlugin implements PluginInterface, EventSubscriberInterface {
 
 		// Find the relative path from the mu-plugins dir to the mu-loader file.
 		$muPath = $this->resolveMURelPath( $muRelPath );
-		$loadFile = dirname( __DIR__ ) . DIRECTORY_SEPARATOR . 'mu-loader.php';
-		$toLoader = DIRECTORY_SEPARATOR . Util\rel_path( $muPath, $loadFile );
+		$ds = $this->getDirectorySeparator();
+		$loadFile = dirname( __DIR__ ) . $ds . 'mu-loader.php';
+		$toLoader = $ds . Util\rel_path( $muPath, $loadFile, $ds );
 
 		// Write the boostrapping PHP file.
 		if ( !file_exists( $muPath ) ) {
@@ -193,5 +194,22 @@ class MULoaderPlugin implements PluginInterface, EventSubscriberInterface {
 		$basepath = str_replace( $tag, '', $this->config->get('vendor-dir') );
 		// Return the abosolute path.
 		return $basepath . $relpath;
+	}
+
+	/**
+	 * Get the directory separator to use for the generatoed loader
+	 *
+	 * This defaults to the DIRECTORY_SEPARATOR constant, but can be overridden in
+	 * the composer.json extra section with "force-unix-separator" set to true.
+	 *
+	 * @return string The directory separator character to use
+	 */
+	protected function getDirectorySeparator() {
+		$separator = DIRECTORY_SEPARATOR;
+		if ( ! empty( $this->extras['force-unix-separator'] ) ) {
+			$separator = '/';
+		}
+
+		return $separator;
 	}
 }
