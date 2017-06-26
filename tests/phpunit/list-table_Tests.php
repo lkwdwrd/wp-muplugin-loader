@@ -48,18 +48,19 @@ class List_Table_Tests extends TestCase {
 				'lastone/lastone.php'
 			]
 		] );
+		$base = WPMU_PLUGIN_DIR . DIRECTORY_SEPARATOR;
 		WP_Mock::wpFunction( 'get_plugin_data', [
-			'args' => ['/root/random/random.php', false ],
+			'args' => [$base . 'random/random.php', false ],
 			'return' => [
 				'Name' => 'Random MU Plugin'
 			]
 		] );
 		WP_Mock::wpFunction( 'get_plugin_data', [
-			'args' => ['/root/testing/notsame.php', false],
+			'args' => [$base . 'testing/notsame.php', false],
 			'return' => []
 		] );
 		WP_Mock::wpFunction( 'get_plugin_data', [
-			'args' => ['/root/lastone/lastone.php', false],
+			'args' => [$base . 'lastone/lastone.php', false],
 			'return' => [
 				'Name' => 'The Last One',
 				'arbitrary' => [ 1, 2, 3 ],
