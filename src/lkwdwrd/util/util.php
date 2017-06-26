@@ -23,8 +23,8 @@ const PS = DIRECTORY_SEPARATOR;
  */
 function rel_path( $from, $to, $ps = PS ) {
 	// Turn paths into array.
-	$arFrom = explode($ps, rtrim( $from, $ps ) );
-	$arTo = explode( $ps, rtrim( $to, $ps ) );
+	$arFrom = explode($ps, rtrim( normalize( $from, $ps ), $ps ) );
+	$arTo = explode( $ps, rtrim( normalize( $to, $ps ), $ps ) );
 	// Strip the common roots from both arrays.
 	while( count( $arFrom ) && count( $arTo ) && ( $arFrom[0] == $arTo[0] ) ) {
 		array_shift( $arFrom );
@@ -33,4 +33,15 @@ function rel_path( $from, $to, $ps = PS ) {
 	// for any itmes left in from, add '../' and then append the remaining
 	// to items.
 	return str_pad( '', count( $arFrom ) * 3, '..' . $ps ) . implode( $ps, $arTo );
+}
+
+/**
+ * Convert all different directory separators into one unified style
+ *
+ * @param  string $path The path to normalize
+ * @param  string $ds   The directory separator to standardize on
+ * @return string       The normalized path
+ */
+function normalize( $path, $ds ) {
+	return str_replace( array( '/', "\\" ), $ds, $path );
 }

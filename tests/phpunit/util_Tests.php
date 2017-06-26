@@ -28,12 +28,38 @@ class MULoaderPlugin_Tests extends TestCase {
 
 	/**
 	 * Make sure the rel_path function makes relative paths.
+	 * @dataProvider data_rel_path
 	 */
-	public function test_rel_path() {
-		$abspath1 = '/a/random/path/to/a/place';
-		$abspath2 = '/a/random/path/to/another/place';
+	public function test_rel_path( $path1, $path2, $sep, $expected) {
+		$this->assertEquals( Util\rel_path( $path1, $path2, $sep ), $expected );
+	}
 
-		$calculatedRel = Util\rel_path( $abspath1, $abspath2, '/' );
-		$this->assertEquals( $calculatedRel, '../../another/place' );
+	public function data_rel_path(){
+		return array(
+			array(
+				'/a/random/path/to/a/place',
+				'/a/random/path/to/another/place',
+				'/',
+				'../../another/place',
+			),
+			array(
+				'/somewhere/over/the/rainbow',
+				'/somewhere/over/the/rainbow/bluebirds/sing',
+				'/',
+				'bluebirds/sing',
+			),
+			array(
+				'/just/some/test',
+				'/just\some\mixed\slash\example',
+				'/',
+				'../mixed/slash/example',
+			),
+			array(
+				'/testing/inverse/directory/separators',
+				'/unix/to/windows',
+				'\\',
+				'..\..\..\..\unix\to\windows',
+			),
+		);
 	}
 }
