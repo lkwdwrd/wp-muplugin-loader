@@ -109,7 +109,7 @@ class Loader_Tests extends TestCase {
 		// only plugins in directorys should pass: rootplugin.php will go away.
 		// WP will include root plugins in it's normal course.
 		WP_Mock::wpFunction( 'get_plugins', [
-			'args' => [ '/relpath' ],
+			'args' => [ DIRECTORY_SEPARATOR . 'relpath' ],
 			'return' => [
 				'random/plugin1.php' => true,
 				'random/plugin2.php' => true,
