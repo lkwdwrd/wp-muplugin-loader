@@ -76,3 +76,13 @@ This is compatible with [WPackagist](https://wpackagist.org/). When adding plugi
 ```
 
 When the `rest-api` plugin is installed, instead of going in the normal plugins folder, it will be pushed over to the mu-plugins folder and loaded automatically with other Must-Use Plugins.
+
+## Forcing Unix Directory Separators
+
+If you work on Windows but use a Linux VM to run your development server, you may need to force unix directory separators to make sure the server can find the mu loader script. If so, there's another configuration in the `extra` block you can set:
+
+```json
+"extra": {
+	"force-unix-separator": true
+}
+```
