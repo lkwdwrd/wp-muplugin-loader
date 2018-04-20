@@ -1,8 +1,8 @@
-#WP Must-Use Plugin Loader
+# WP Must-Use Plugin Loader
 
 [![Build Status](https://travis-ci.org/lkwdwrd/wp-muplugin-loader.svg?branch=master)](https://travis-ci.org/lkwdwrd/wp-muplugin-loader)
 
-Managing plugins using the [Composer Installers](https://github.com/composer/installers) library works remarkably well. However, it's handling of MU plugins leaves something to be desired.
+Managing plugins using the [Composer Installers](https://github.com/composer/installers) library works remarkably well. However, its handling of MU plugins leaves something to be desired.
 
 WordPress MU (must use) Plugins are files that are placed in the `wp-content/mu-plugins/` folder. These files are loaded automatically. The problem is when a plugin is actually inside a folder. WordPress will only load .php files and doesn't drop into any directories. When the Composer Installers plugin runs, it always puts the repo into a nice contained folder. This means the Composer Installers MU plugins never actually run!
 
