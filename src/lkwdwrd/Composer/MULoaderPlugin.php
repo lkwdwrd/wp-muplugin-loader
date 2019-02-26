@@ -22,11 +22,6 @@ use Composer\EventDispatcher\EventSubscriberInterface;
 use LkWdwrd\MU_Loader\Util;
 
 /**
- * Require the utility functions.
- */
-require_once dirname( __DIR__ ) . '/util/util.php';
-
-/**
  * A Composer plugin for autoloading WordPress Must-Use plugins.
  *
  * This plugin subscribes to two events. When the autoloader is dumped for
