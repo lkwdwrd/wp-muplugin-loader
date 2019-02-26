@@ -14,7 +14,8 @@
 		}
 	],
 	"autoload": {
-		"psr-4": { "LkWdwrd\\Composer\\": "src/lkwdwrd/Composer" }
+		"psr-4": { "LkWdwrd\\Composer\\": "src/lkwdwrd/Composer" },
+		"classmap": [ "src/lkwdwrd/util" ]
 	},
 	"extra": {
 		"class": "LkWdwrd\\Composer\\MULoaderPlugin"
