@@ -21,7 +21,6 @@ class MULoaderPlugin_Tests extends TestCase {
 	 * Include the necessary files.
 	 */
 	public function setUp() {
-		require_once PROJECT . '/util/util.php';
 
 		parent::setUp();
 	}
@@ -31,7 +30,7 @@ class MULoaderPlugin_Tests extends TestCase {
 	 * @dataProvider data_rel_path
 	 */
 	public function test_rel_path( $path1, $path2, $sep, $expected) {
-		$this->assertEquals( Util\rel_path( $path1, $path2, $sep ), $expected );
+		$this->assertEquals( \LkWdwrd\MU_Loader\Util\rel_path( $path1, $path2, $sep ), $expected );
 	}
 
 	public function data_rel_path(){

@@ -24,7 +24,6 @@ class Loader_Tests extends TestCase {
 		define( 'WPMU_PLUGIN_DIR', __DIR__ . '/tools' );
 		define( 'WP_PLUGIN_DIR', '/other' );
 		$this->key = md5( json_encode( scandir( WPMU_PLUGIN_DIR ) ) );
-		require_once PROJECT . '/util/loader.php';
 		WP_Mock::setUp();
 		parent::setUp();
 	}
@@ -44,7 +43,7 @@ class Loader_Tests extends TestCase {
 		$this->assertFalse( defined( '\LkWdwrd\Test\included' ) );
 		$this->assertFalse( defined( '\LkWdwrd\Test2\included' ) );
 		// Run the method to include plugin files.
-		Loader\mu_loader( [ 'includable.php', 'includable2.php'] );
+		\LkWdwrd\MU_Loader\Loader\mu_loader( [ 'includable.php', 'includable2.php'] );
 		// Make sure the files are now included.
 		$this->assertTrue( defined( '\LkWdwrd\Test\included' ) );
 		$this->assertTrue( defined( '\LkWdwrd\Test2\included' ) );
@@ -71,7 +70,7 @@ class Loader_Tests extends TestCase {
 			]
 		] );
 		// Run the test
-		$return = Loader\mu_loader();
+		$return = \LkWdwrd\MU_Loader\Loader\mu_loader();
 		// Verify the results
 		$this->assertNull( $return );
 	}
@@ -87,7 +86,7 @@ class Loader_Tests extends TestCase {
 			]
 		] );
 		// Run the test
-		$result = Loader\get_muplugins();
+		$result = \LkWdwrd\MU_Loader\Loader\get_muplugins();
 		// Verify the results
 		$this->assertEquals( $result, [ 'a/plugin.php' ] );
 	}
@@ -121,7 +120,7 @@ class Loader_Tests extends TestCase {
 			'args' => [ $this->key, $expected ]
 		] );
 		// Run the test
-		$result = Loader\get_muplugins();
+		$result = \LkWdwrd\MU_Loader\Loader\get_muplugins();
 		// Make sure the set cache function was called.
 		$this->assertEquals( $result, $expected );
 	}
@@ -146,7 +145,7 @@ class Loader_Tests extends TestCase {
 		// First run a control assertion, then run a test assertion.
 		$this->assertFalse( defined( '\LkWdWrd\Test\WP_Admin\included' ) );
 		// Run the test
-		Loader\get_muplugins();
+		\LkWdwrd\MU_Loader\Loader\get_muplugins();
 		// Verify the results
 		$this->assertTrue( defined( '\LkWdWrd\Test\WP_Admin\included' ) );
 	}
@@ -157,7 +156,7 @@ class Loader_Tests extends TestCase {
 		//Set up mocks
 		WP_Mock::wpFunction( 'get_site_transient', [ 'return' => $this->key ] );
 		// Run the test
-		$result = Loader\get_muloader_key();
+		$result = \LkWdwrd\MU_Loader\Loader\get_muloader_key();
 		// Verify results
 		$this->assertEquals( $result, $this->key );
 	}
@@ -179,7 +178,7 @@ class Loader_Tests extends TestCase {
 			'args' => [ 'lkw_mu_loader_key', $this->key ]
 		] );
 		// Run the test
-		$result = Loader\get_muloader_key();
+		$result = \LkWdwrd\MU_Loader\Loader\get_muloader_key();
 		// Verify results
 		$this->assertEquals( $result, $this->key );
 	}

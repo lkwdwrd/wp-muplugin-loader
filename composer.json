@@ -14,6 +14,11 @@
 		}
 	],
 	"autoload": {
+		"files": [
+			"src/lkwdwrd/util/list-table.php",
+			"src/lkwdwrd/util/loader.php",
+			"src/lkwdwrd/util/util.php"
+		],
 		"psr-4": { "LkWdwrd\\Composer\\": "src/lkwdwrd/Composer" }
 	},
 	"extra": {

@@ -23,8 +23,6 @@ class List_Table_Tests extends TestCase {
 	 */
 	public function setUp() {
 		define( 'WPMU_PLUGIN_DIR', '/root' );
-		require_once __DIR__ . '/tools/WP_Plugins_List_Table.php';
-		require_once PROJECT . '/util/list-table.php';
 		\WP_Mock::setUp();
 		parent::setUp();
 	}
@@ -69,7 +67,7 @@ class List_Table_Tests extends TestCase {
 		] );
 
 		// Run the function
-		List_Table\list_table();
+		\LkWdwrd\MU_Loader\List_Table\list_table();
 
 		// Verify the expected data was passed to the single_row method.
 		$this->assertEquals(
