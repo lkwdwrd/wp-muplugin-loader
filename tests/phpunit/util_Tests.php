@@ -21,7 +21,6 @@ class MULoaderPlugin_Tests extends TestCase {
 	 * Include the necessary files.
 	 */
 	public function setUp() {
-		require_once PROJECT . '/util/util.php';
 
 		parent::setUp();
 	}

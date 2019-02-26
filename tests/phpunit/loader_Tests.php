@@ -24,7 +24,6 @@ class Loader_Tests extends TestCase {
 		define( 'WPMU_PLUGIN_DIR', __DIR__ . '/tools' );
 		define( 'WP_PLUGIN_DIR', '/other' );
 		$this->key = md5( json_encode( scandir( WPMU_PLUGIN_DIR ) ) );
-		require_once PROJECT . '/util/loader.php';
 		WP_Mock::setUp();
 		parent::setUp();
 	}
