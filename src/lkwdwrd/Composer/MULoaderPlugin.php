@@ -142,9 +142,11 @@ class MULoaderPlugin implements PluginInterface, EventSubscriberInterface {
 		if ( !file_exists( $muPath ) ) {
 			mkdir( $muPath, 0755, true );
 		}
+		// Must break up __DIR__ constant when inside double quotes, or sometimes it
+		// will be filled with the Composer runtime value for __DIR__
 		file_put_contents(
 			$muPath . 'mu-require.php',
-			"<?php\nrequire_once __DIR__ . '${toLoader}';\n"
+			"<?php\nrequire_once __DI" . "R__ . '${toLoader}';\n"
 		);
 	}
 	/**
