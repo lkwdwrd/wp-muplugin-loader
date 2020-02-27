@@ -91,7 +91,7 @@ class MULoaderPlugin implements PluginInterface, EventSubscriberInterface {
 		// Get the package being worked on.
 		$operation = $event->getOperation();
 		if ( $operation instanceof \Composer\DependencyResolver\Operation\UpdateOperation ) {
-			$package = $operation->getInitialPackage();
+			$package = $operation->getTargetPackage();
 		} else {
 			$package = $operation->getPackage();
 		}
