@@ -1,6 +1,14 @@
 # WP Must-Use Plugin Loader
 
-[![Build Status](https://travis-ci.org/lkwdwrd/wp-muplugin-loader.svg?branch=master)](https://travis-ci.org/lkwdwrd/wp-muplugin-loader)
+[![Build Status](https://travis-ci.org/boxuk/wp-muplugin-loader.svg?branch=master)](https://travis-ci.org/boxuk/wp-muplugin-loader)
+
+## Attribution
+
+- This package was forked from
+  [WP Must-Use Plugin Loader](https://github.com/lkwdwrd/wp-muplugin-loader)
+  due to it seemingly falling into abandonment. We are happy to contribute our work back to the source should the maintainer pick up the project again.
+  
+## Overview
 
 Managing plugins using the [Composer Installers](https://github.com/composer/installers) library works remarkably well. However, its handling of MU plugins leaves something to be desired.
 
