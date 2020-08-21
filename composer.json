@@ -1,5 +1,5 @@
 {
-	"name" : "lkwdwrd/wp-muplugin-loader",
+	"name" : "boxuk/wp-muplugin-loader",
 	"version" : "1.0.5",
 	"description" : "A drop-in MU Plugin loader for WordPress",
 	"keywords" : ["wordpress", "muplugin", "loader"],
@@ -20,6 +20,7 @@
 		"class": "LkWdwrd\\Composer\\MULoaderPlugin"
 	},
 	"require": {
+		"php": "^7.2",
 		"composer-plugin-api": "^1.0"
 	},
 	"require-dev" : {
