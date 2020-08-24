@@ -3,3 +3,5 @@
 /phpunit.xml
 /bootstrap.php
 /build
+/tests/phpunit/tmp/mu-plugins/*
+!/tests/phpunit/tmp/mu-plugins/.gitkeep

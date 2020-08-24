@@ -73,7 +73,7 @@ class MULoaderPlugin implements PluginInterface, EventSubscriberInterface {
 		);
 	}
 	/**
-	 * Checks the package being installed and conditionaly overrides type.
+	 * Checks the package being installed and conditionally overrides type.
 	 *
 	 * If the package being installed is the `wordpress-plugin` type, this will
 	 * check the extras array to see if the package's slug is present in the
@@ -91,7 +91,7 @@ class MULoaderPlugin implements PluginInterface, EventSubscriberInterface {
 		// Get the package being worked on.
 		$operation = $event->getOperation();
 		if ( $operation instanceof \Composer\DependencyResolver\Operation\UpdateOperation ) {
-			$package = $operation->getInitialPackage();
+			$package = $operation->getTargetPackage();
 		} else {
 			$package = $operation->getPackage();
 		}
@@ -144,7 +144,7 @@ class MULoaderPlugin implements PluginInterface, EventSubscriberInterface {
 		}
 		file_put_contents(
 			$muPath . 'mu-require.php',
-			"<?php\nrequire_once __DIR__ . '${toLoader}';\n"
+			"<?php\nrequire_once" . ' __DIR__ . ' . "'${toLoader}';\n"
 		);
 	}
 	/**
@@ -192,12 +192,12 @@ class MULoaderPlugin implements PluginInterface, EventSubscriberInterface {
 			$tag = '';
 		}
 		$basepath = str_replace( $tag, '', $this->config->get('vendor-dir') );
-		// Return the abosolute path.
+		// Return the absolute path.
 		return $basepath . $relpath;
 	}
 
 	/**
-	 * Get the directory separator to use for the generatoed loader
+	 * Get the directory separator to use for the generated loader
 	 *
 	 * This defaults to the DIRECTORY_SEPARATOR constant, but can be overridden in
 	 * the composer.json extra section with "force-unix-separator" set to true.
