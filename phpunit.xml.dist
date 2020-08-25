@@ -1,5 +1,5 @@
 <phpunit
-	bootstrap="bootstrap.php.dist"
+	bootstrap="tests/bootstrap.php"
 	backupGlobals="false"
 	processIsolation="true"
 	colors="true">

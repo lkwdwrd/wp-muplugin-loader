@@ -6,6 +6,7 @@
  * @copyright Luke Woodward
  * @package WP_MUPlugin_Loader
  */
+
 namespace LkWdwrd\MU_Loader\List_Table;
 
 /**
@@ -15,7 +16,7 @@ use LkWdwrd\MU_Loader\Loader;
 
 // Create some aliases for long-named constants
 const PS = DIRECTORY_SEPARATOR;
-const LT = '\WP_Plugins_List_Table';
+const LT = \WP_Plugins_List_Table::class;
 const MUDIR = WPMU_PLUGIN_DIR;
 
 /**
@@ -28,12 +29,12 @@ const MUDIR = WPMU_PLUGIN_DIR;
  *
  * Each name is prefixed with '+  ' to help indicate it was added through the
  * Must-Use Plugins Loader.
- * @param  WP_Plugins_List_Table $lt    The core list table class.
- * @param  String                $ps    The path separator to use.
- * @param  String                $mudir The Must-Use Plugins directory.
+ * @param  \WP_Plugins_List_Table|string $lt    The core list table class.
+ * @param  string                        $ps    The path separator to use.
+ * @param  string                        $mudir The Must-Use Plugins directory.
  * @return void
  */
-function list_table( $lt = LT, $ps = PS, $mudir = MUDIR ) {
+function list_table( $lt = LT, $ps = PS, $mudir = MUDIR ): void {
 	$table = new $lt;
 	$spacer = '+&nbsp;&nbsp;';
 
