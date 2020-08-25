@@ -40,12 +40,19 @@ require_once dirname( __DIR__ ) . '/util/util.php';
  */
 class MULoaderPlugin implements PluginInterface, EventSubscriberInterface {
 	/**
+	 * Default name of our generated mu require file.
+	 *
+	 * @var string
+	 */
+	private const DEFAULT_MU_REQUIRE_FILE = 'mu-require.php';
+
+	/**
 	 * Holds the extras array for the root Composer project.
 	 *
 	 * @var array
 	 */
-
 	private $extras;
+
 	/**
 	 * Holds the config object for the root Composer project.
 	 *
@@ -152,10 +159,17 @@ class MULoaderPlugin implements PluginInterface, EventSubscriberInterface {
 		if ( !file_exists( $muPath ) ) {
 			mkdir( $muPath, 0755, true );
 		}
-		file_put_contents(
-			$muPath . 'mu-require.php',
-			"<?php\nrequire_once" . ' __DIR__ . ' . "'${toLoader}';\n"
-		);
+
+		// Allow the name of the mu-require to be specified.
+		$muRequireFile = $this->extras['mu-require-file'] ?? self::DEFAULT_MU_REQUIRE_FILE;
+
+		// This allows users to also turn off the auto generation of mu-require if they wish.
+		if ( $muRequireFile !== false ) {
+			file_put_contents(
+				$muPath . $muRequireFile,
+				"<?php\nrequire_once" . ' __DIR__ . ' . "'${toLoader}';\n"
+			);
+		}
 	}
 
 	/**

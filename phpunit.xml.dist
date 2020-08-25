@@ -6,6 +6,7 @@
 	<testsuites>
 		<testsuite name="Default">
 			<directory suffix="Tests.php">./tests/phpunit</directory>
+			<directory suffix="Test.php">./tests/phpunit/Composer</directory>
 			</testsuite>
 	</testsuites>
 	<filter>

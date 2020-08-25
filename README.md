@@ -50,6 +50,26 @@ And that's it.
 
 When Composer dumps it's autoload file, a file called `mu-require.php` will be placed into your mu-plugins folder. When WordPress loads this file as an MU plugin, it will find all of the plugins in folders in your MU plugins directory and include those as well.
 
+### Changing the name of the generated file
+
+If you need to have control over what the name of the generated file is, you can set it with the following within the extra section of your `composer.json`:
+
+```json
+"extra": {
+	...
+	"mu-require-file": "custom-mu-require-filename.php"
+}
+```
+
+Similarly, if you wish to turn off generation of this file altogether you can do so by setting this to false:
+
+```json
+"extra": {
+	...
+	"mu-require-file": false
+}
+```
+
 ## Forcing MU Plugins
 
 Usually when you are using MU plugins, you have some 'normal' WordPress plugins that you want to always be active. They are not always MU-Plugins, though, so it makes no sense to put the `"type": "wordpress-muplugin"` in the `composer.json` file. WP Must-Use Plugin Loader allows you to override the type from `wordpress-plugin` to `wordpress-muplugin` as needed.
