@@ -3,6 +3,10 @@ if ( ! defined( 'PROJECT' ) ) {
 	define( 'PROJECT', __DIR__ . '/../src/lkwdwrd/' );
 }
 
+if ( ! defined( 'PROJECT_TESTS' ) ) {
+	define( 'PROJECT_TESTS', __DIR__ . '/phpunit/' );
+}
+
 if ( ! defined( 'ABSPATH' ) ) {
 	define( 'ABSPATH', __DIR__ . '/phpunit/tools/' );
 }
