@@ -1,26 +1,18 @@
 <?php
-namespace LkWdwrd\MU_Loader;
 
-/**
-* This is a very basic test case to get things started. You should probably rename this and make
-* it work for your project. You can use all the tools provided by WP Mock and Mockery to create
-* your tests. Coverage is calculated against your includes/ folder, so try to keep all of your
-* functional code self contained in there.
-*
-* References:
-*   - http://phpunit.de/manual/current/en/index.html
-*   - https://github.com/padraic/mockery
-*   - https://github.com/10up/wp_mock
-*/
-
-use WP_Mock;
 use PHPUnit\Framework\TestCase;
+use LkWdwrd\MU_Loader\Loader;
 
 class Loader_Tests extends TestCase {
 	/**
+	 * @var string
+	 */
+	private $key;
+
+	/**
 	 * Include the necessary files. Run setup scripts.
 	 */
-	public function setUp() {
+	public function setUp(): void {
 		define( 'WPMU_PLUGIN_DIR', __DIR__ . '/tools' );
 		define( 'WP_PLUGIN_DIR', '/other' );
 		$this->key = md5( json_encode( scandir( WPMU_PLUGIN_DIR ) ) );
@@ -30,57 +22,58 @@ class Loader_Tests extends TestCase {
 	}
 	/**
 	 * Run tear down scripts.
-	 * @return [type] [description]
 	 */
-	public function tearDown() {
+	public function tearDown(): void {
 		WP_Mock::tearDown();
 		parent::tearDown();
 	}
+
 	/**
 	 * Ensure the loader function includes passed plugin files.
 	 */
-	public function test_mu_loader() {
+	public function test_mu_loader(): void {
 		// Run control assertions.
-		$this->assertFalse( defined( '\LkWdwrd\Test\included' ) );
-		$this->assertFalse( defined( '\LkWdwrd\Test2\included' ) );
+		self::assertFalse( defined( '\LkWdwrd\Test\included' ) );
+		self::assertFalse( defined( '\LkWdwrd\Test2\included' ) );
 		// Run the method to include plugin files.
 		Loader\mu_loader( [ 'includable.php', 'includable2.php'] );
 		// Make sure the files are now included.
-		$this->assertTrue( defined( '\LkWdwrd\Test\included' ) );
-		$this->assertTrue( defined( '\LkWdwrd\Test2\included' ) );
+		self::assertTrue( defined( '\LkWdwrd\Test\included' ) );
+		self::assertTrue( defined( '\LkWdwrd\Test2\included' ) );
 	}
+
 	/**
 	 * The test_mu_loader should use call get_muplugins by default.
 	 *
-	 * We can't test that very well, but we can short-cicuit the method pretty
+	 * We can't test that very well, but we can short-circuit the method pretty
 	 * easily by returning an empty array from the transient call. The transient
 	 * should be called twice, once to get the cache key, and again to get the
 	 * plugin list. By asserting this is called twice we can assume it is
 	 * properly calling the get_muplugins function.
 	 *
-	 * This will likley breaky on a major refactor, but should catch most of the
+	 * This will likely break on a major refactor, but should catch most of the
 	 * possible used cases.
 	 */
-	public function test_mu_loader_default() {
+	public function test_mu_loader_default(): void {
 		// Set up mocks
-		WP_Mock::wpFunction( 'get_site_transient', [
+		WP_Mock::userFunction( 'get_site_transient', [
 			'times' => 2,
 			'return_in_order' => [
 				$this->key,
 				[]
 			]
 		] );
+
 		// Run the test
-		$return = Loader\mu_loader();
-		// Verify the results
-		$this->assertNull( $return );
+		self::assertNull( Loader\mu_loader() );
 	}
+
 	/**
 	 * The get_muplugins function will return cached data if available.
 	 */
-	public function test_get_muplugins_cache() {
+	public function test_get_muplugins_cache(): void {
 		// Set up mocks
-		WP_Mock::wpFunction( 'get_site_transient', [
+		WP_Mock::userFunction( 'get_site_transient', [
 			'return_in_order' => [
 				$this->key,
 				[ 'a/plugin.php' ]
@@ -89,26 +82,27 @@ class Loader_Tests extends TestCase {
 		// Run the test
 		$result = Loader\get_muplugins();
 		// Verify the results
-		$this->assertEquals( $result, [ 'a/plugin.php' ] );
+		self::assertEquals( [ 'a/plugin.php' ], $result );
 	}
+
 	/**
 	 * If the cache misses get_muplugins will generate a new list of plugins.
 	 */
-	public function test_get_muplugins_nocache() {
+	public function test_get_muplugins_nocache(): void {
 		$expected = [ 'random/plugin1.php', 'random/plugin2.php' ];
 		// Set up mocks
-		WP_Mock::wpFunction( 'get_site_transient', [
+		WP_Mock::userFunction( 'get_site_transient', [
 			'return_in_order' => [
 				$this->key,
 				false
 			]
 		] );
-		WP_Mock::wpFunction( 'LkWdwrd\MU_Loader\Util\rel_path', [
+		WP_Mock::userFunction( 'LkWdwrd\MU_Loader\Util\rel_path', [
 			'return' => 'relpath'
 		] );
-		// only plugins in directorys should pass: rootplugin.php will go away.
+		// only plugins in directories should pass: rootplugin.php will go away.
 		// WP will include root plugins in it's normal course.
-		WP_Mock::wpFunction( 'get_plugins', [
+		WP_Mock::userFunction( 'get_plugins', [
 			'args' => [ DIRECTORY_SEPARATOR . 'relpath' ],
 			'return' => [
 				'random/plugin1.php' => true,
@@ -116,71 +110,74 @@ class Loader_Tests extends TestCase {
 				'rootplugin.php' => true
 			]
 		] );
-		WP_Mock::wpFunction( 'set_site_transient', [
+		WP_Mock::userFunction( 'set_site_transient', [
 			'times' => 1,
 			'args' => [ $this->key, $expected ]
 		] );
 		// Run the test
 		$result = Loader\get_muplugins();
 		// Make sure the set cache function was called.
-		$this->assertEquals( $result, $expected );
+		self::assertEquals( $expected, $result );
 	}
+
 	/**
 	 * If get_plugins is not defined it will include the admin file.
 	 */
-	public function test_get_muplugins_admin_require() {
+	public function test_get_muplugins_admin_require(): void {
 		// Set up mocks
-		WP_Mock::wpFunction( 'get_site_transient', [
+		WP_Mock::userFunction( 'get_site_transient', [
 			'return_in_order' => [
 				$this->key,
 				false
 			]
 		] );
-		WP_Mock::wpFunction( 'LkWdwrd\MU_Loader\Util\rel_path', [
+		WP_Mock::userFunction( 'LkWdwrd\MU_Loader\Util\rel_path', [
 			'return' => 'relpath'
 		] );
-		WP_Mock::wpPassthruFunction( 'set_site_transient' );
+		WP_Mock::passthruFunction( 'set_site_transient' );
 		// Run the test.
 		// This will include `tools/wp-admin/includes/plugin.php` which sets
 		// a flag in it's namespace to indicate it has loaded.
 		// First run a control assertion, then run a test assertion.
-		$this->assertFalse( defined( '\LkWdWrd\Test\WP_Admin\included' ) );
+		self::assertFalse( defined( '\LkWdWrd\Test\WP_Admin\included' ) );
 		// Run the test
 		Loader\get_muplugins();
 		// Verify the results
-		$this->assertTrue( defined( '\LkWdWrd\Test\WP_Admin\included' ) );
+		self::assertTrue( defined( '\LkWdWrd\Test\WP_Admin\included' ) );
 	}
+
 	/**
 	 * The get_muloader_key function returns the existing key if no changes
 	 */
-	public function test_get_muloader_key_same() {
+	public function test_get_muloader_key_same(): void {
 		//Set up mocks
-		WP_Mock::wpFunction( 'get_site_transient', [ 'return' => $this->key ] );
+		WP_Mock::userFunction( 'get_site_transient', [ 'return' => $this->key ] );
 		// Run the test
 		$result = Loader\get_muloader_key();
 		// Verify results
-		$this->assertEquals( $result, $this->key );
+		self::assertEquals( $this->key, $result );
 	}
+
 	/**
 	 * The get_muloader_key function deletes old transients with change.
 	 */
-	public function test_get_muloader_key_different() {
+	public function test_get_muloader_key_different(): void {
 		//Set up mocks
-		WP_Mock::wpFunction( 'get_site_transient', [
+		WP_Mock::userFunction( 'get_site_transient', [
 			'args' => [ 'lkw_mu_loader_key' ],
 			'return' => 'non-matching-key'
 		] );
-		WP_Mock::wpFunction( 'delete_site_transient', [
+		WP_Mock::userFunction( 'delete_site_transient', [
 			'times' => 1,
 			'args' => [ 'non-matching-key' ]
 		] );
-		WP_Mock::wpFunction( 'set_site_transient', [
+		WP_Mock::userFunction( 'set_site_transient', [
 			'times' => 1,
 			'args' => [ 'lkw_mu_loader_key', $this->key ]
 		] );
 		// Run the test
 		$result = Loader\get_muloader_key();
 		// Verify results
-		$this->assertEquals( $result, $this->key );
+		self::assertEquals( $this->key, $result );
 	}
 }

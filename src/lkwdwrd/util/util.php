@@ -16,12 +16,13 @@ const PS = DIRECTORY_SEPARATOR;
  *
  * Note that this does not work between two different drives. It only works for
  * two absolute paths located on the same disk.
- * @param  String $from The absolute path to go from.
- * @param  String $to   The absolute path to go to.
- * @param  String $ps   The string to use as the path separator.
- * @return String       The relative path between $from and $to.
+ *
+ * @param  string $from The absolute path to go from.
+ * @param  string $to   The absolute path to go to.
+ * @param  string $ps   The string to use as the path separator.
+ * @return string       The relative path between $from and $to.
  */
-function rel_path( $from, $to, $ps = PS ) {
+function rel_path( $from, $to, $ps = PS ): string {
 	// Turn paths into array.
 	$arFrom = explode($ps, rtrim( normalize( $from, $ps ), $ps ) );
 	$arTo = explode( $ps, rtrim( normalize( $to, $ps ), $ps ) );
@@ -30,7 +31,7 @@ function rel_path( $from, $to, $ps = PS ) {
 		array_shift( $arFrom );
 		array_shift( $arTo );
 	}
-	// for any itmes left in from, add '../' and then append the remaining
+	// for any items left in from, add '../' and then append the remaining
 	// to items.
 	return str_pad( '', count( $arFrom ) * 3, '..' . $ps ) . implode( $ps, $arTo );
 }
@@ -42,6 +43,6 @@ function rel_path( $from, $to, $ps = PS ) {
  * @param  string $ds   The directory separator to standardize on
  * @return string       The normalized path
  */
-function normalize( $path, $ds ) {
+function normalize( $path, $ds ): string {
 	return str_replace( array( '/', "\\" ), $ds, $path );
 }

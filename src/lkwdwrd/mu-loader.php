@@ -21,9 +21,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Require utilities.
  */
-require_once( __DIR__ . '/util/loader.php' );
-require_once( __DIR__ . '/util/util.php' );
-require_once( __DIR__ . '/util/list-table.php' );
+require_once __DIR__ . '/util/loader.php';
+require_once __DIR__ . '/util/util.php';
+require_once __DIR__ . '/util/list-table.php';
 
 /**
  * If we are not installing, run the `mu_loader()`
