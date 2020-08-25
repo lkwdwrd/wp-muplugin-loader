@@ -167,7 +167,7 @@ class MULoaderPlugin implements PluginInterface, EventSubscriberInterface {
 		if ( $muRequireFile !== false ) {
 			file_put_contents(
 				$muPath . $muRequireFile,
-				"<?php\nrequire_once" . ' __DIR__ . ' . "'${toLoader}';\n"
+				"<?php\n" . self::getMuRequireGeneratedDocBlock() . "\n" . 'require_once __DIR__ . ' . "'${toLoader}';\n"
 			);
 		}
 	}
@@ -237,5 +237,25 @@ class MULoaderPlugin implements PluginInterface, EventSubscriberInterface {
 		}
 
 		return $separator;
+	}
+
+	/**
+	 * Get the docblock for our generated mu-require file.
+	 *
+	 * @return string
+	 */
+	public static function getMuRequireGeneratedDocBlock(): string {
+		return <<<DOCBLOCK
+/**
+ * Plugin Name: MU Plugin Loader
+ * Plugin URI: https://github.com/boxuk/wp-muplugin-loader
+ * Description: MU Plugin Loader - Autoload your mu-plugin directories.
+ * Version: 1.1.0
+ * Author: Box UK / Luke Woodward
+ * Author URI: https://github.com/boxuk/wp-muplugin-loader
+ *
+ * @since 1.1.0
+ */
+DOCBLOCK;
 	}
 }
