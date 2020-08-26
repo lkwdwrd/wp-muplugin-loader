@@ -1,13 +1,16 @@
 {
 	"name" : "boxuk/wp-muplugin-loader",
-	"version" : "1.0.5",
 	"description" : "A drop-in MU Plugin loader for WordPress",
 	"keywords" : ["wordpress", "muplugin", "loader"],
 	"type" : "composer-plugin",
 	"license" : "MIT",
-	"minimum-stability": "dev",
+	"minimum-stability": "stable",
 	"prefer-stable": true,
 	"authors" : [
+		{
+			"name" : "Box UK",
+			"email": "developers@boxuk.com"
+		},
 		{
 			"name" : "Luke Woodward",
 			"email": "woodward.lucas@gmail.com"
