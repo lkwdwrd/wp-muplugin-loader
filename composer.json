@@ -27,7 +27,7 @@
 	},
 	"require": {
 		"php": "^7.2",
-		"composer-plugin-api": "^1.0"
+		"composer-plugin-api": "^1.0 || ^2.0"
 	},
 	"require-dev" : {
 		"10up/wp_mock": "^0.4",
