@@ -212,4 +212,18 @@ class MULoaderPlugin implements PluginInterface, EventSubscriberInterface {
 
 		return $separator;
 	}
+
+	/**
+     * {@inheritDoc}
+     */
+    public function deactivate(Composer $composer, IOInterface $io): void
+    {
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function uninstall(Composer $composer, IOInterface $io): void
+    {
+    }
 }
